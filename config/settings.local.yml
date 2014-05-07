@@ -1,4 +1,0 @@
-google_api:
-  client_id: '708190320024-979tto591j8il9msld1ppndpfg1q63c2.apps.googleusercontent.com'
-  client_secret: 'W2bRGafBCEvLcI_vEV-ZPZtk'
-  redirect_uri: 'http://localhost:3000/auth/google_oauth2/callback'
