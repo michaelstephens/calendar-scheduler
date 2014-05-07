@@ -22,6 +22,7 @@ gem 'rails_config'
 gem 'ruby_parser'
 gem 'sass-rails'
 gem 'slim-rails' # for slim generators instead of erb
+gem 'sprockets', '2.11.0'
 gem 'therubyracer'
 gem 'thor'
 gem 'turbolinks'
