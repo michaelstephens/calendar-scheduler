@@ -13,12 +13,13 @@ class EventsController < ApplicationController
   end
 
   def create
-    if @event.save
-      redirect_to @event
-      flash[:notice] = "#{@event} created."
-    else
-      render :new
-    end
+    new_calendar
+    # if @event.save
+    #   redirect_to @event
+    #   flash[:notice] = "#{@event} created."
+    # else
+    #   render :new
+    # end
   end
 
   def edit
@@ -42,6 +43,33 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def new_calendar
+    #What data comes back from OmniAuth?
+    @auth = request.env["omniauth.auth"]
+    #Use the token from the data to request a list of calendars
+    @token = @auth["credentials"]["token"]
+    client = Google::APIClient.new
+    client.authorization.access_token = @token
+    service = client.discovered_api('calendar', 'v3')
+
+    event = {
+      'summary' => 'Google Calendar Test API Event',
+      'location' => "Michael's Desk",
+      'description' => 'Google Calendar Test API Event',
+      'start' => {
+        'dateTime' => "#{Chronic.parse('today at 3pm').strftime('%FT%T.%L%:z')}"
+      },
+      'end' => {
+        'dateTime' => "#{Chronic.parse('today at 5pm').strftime('%FT%T.%L%:z')}"
+      }
+    }
+    @result = client.execute(
+      :api_method => service.events.insert,
+      :parameters => {'calendarId' => 'primary', 'text' => 'Test Event'},
+      :body => JSON.dump(event),
+      :headers => {'Content-Type' => 'application/json'})
+  end
 
   def new_event_from_params
     @event = Event.new(events_params)

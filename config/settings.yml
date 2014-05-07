@@ -1,5 +1,5 @@
 app:
-  name: Rails Google Calendar
+  name: Calendar Scheduler
   scheme: https
   host: apps.biola.edu
   relative_url_root: /rails_google_calendar

@@ -28,6 +28,11 @@ gem 'turbolinks'
 gem 'uglifier'
 gem 'version'
 
+# Google API gems
+gem 'google-api-client', :require => 'google/api_client'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'

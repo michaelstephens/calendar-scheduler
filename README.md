@@ -1,4 +1,4 @@
-rails_google_calendar
+calendar-scheduler
 =====================
 
 App to mess around with the Rails Google Calendar gem
