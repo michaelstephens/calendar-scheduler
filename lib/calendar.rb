@@ -28,7 +28,7 @@ class Calendar
     @client.authorization = Signet::OAuth2::Client.new(
       token_credential_uri: 'https://accounts.google.com/o/oauth2/token',
       audience: 'https://accounts.google.com/o/oauth2/token',
-      scope: 'https://www.googleapis.com/auth/analytics.readonly',
+      scope: 'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/calendar',
       issuer: service_account_email,
       signing_key: key)
 

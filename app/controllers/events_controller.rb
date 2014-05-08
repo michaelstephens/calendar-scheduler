@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    Calendar.new("insert", Event.first).call
+    @cal = Calendar.new("insert", Event.first).call
     # params[:event][:attendees] = params[:event][:attendees].split(',')
     # if @event.save
     #   Calendar.new("insert", @event).call
