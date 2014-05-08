@@ -9,6 +9,7 @@ gem 'coffee-rails'
 gem 'declarative_authorization'
 gem 'font-awesome-rails'
 gem 'gon'
+gem 'google-api-client', :require => 'google/api_client'
 gem 'humanity', '>= 0.2.1'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -28,11 +29,6 @@ gem 'thor'
 gem 'turbolinks'
 gem 'uglifier'
 gem 'version'
-
-# Google API gems
-gem 'google-api-client', :require => 'google/api_client'
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
 
 group :development do
   gem 'better_errors'

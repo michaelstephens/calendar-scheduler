@@ -73,10 +73,10 @@ class Calendar
       'location' => "Michael's Desk",
       'description' => 'Google Calendar Test API Event',
       'start' => {
-        'dateTime' => "#{Chronic.parse('today at 3pm').strftime('%FT%T.%L%:z')}"
+        'dateTime' => Chronic.parse('today at 8am').to_datetime.rfc3339(3)
       },
       'end' => {
-        'dateTime' => "#{Chronic.parse('today at 5pm').strftime('%FT%T.%L%:z')}"
+        'dateTime' => Chronic.parse('today at 10am').to_datetime.rfc3339(3)
       }
     }
   end
