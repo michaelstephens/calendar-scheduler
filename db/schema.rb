@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140506172729) do
+ActiveRecord::Schema.define(version: 20140507231258) do
 
   create_table "assignments", force: true do |t|
     t.integer "human_id"
@@ -33,8 +33,9 @@ ActiveRecord::Schema.define(version: 20140506172729) do
     t.datetime "updated_at"
     t.text     "description"
     t.string   "location"
-    t.string   "private",     default: "default"
+    t.string   "visibility",  default: "default"
     t.text     "attendees"
+    t.integer  "user_id"
   end
 
   create_table "roles", force: true do |t|

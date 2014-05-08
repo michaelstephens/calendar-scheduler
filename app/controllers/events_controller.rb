@@ -13,9 +13,11 @@ class EventsController < ApplicationController
   end
 
   def create
-    new_calendar
+    Calendar.new("insert", Event.first).call
+    # params[:event][:attendees] = params[:event][:attendees].split(',')
     # if @event.save
-    #   redirect_to @event
+    #   Calendar.new("insert", @event).call
+    #   # new_calendar(@event, request)
     #   flash[:notice] = "#{@event} created."
     # else
     #   render :new
@@ -44,38 +46,48 @@ class EventsController < ApplicationController
 
   private
 
-  def new_calendar
-    #What data comes back from OmniAuth?
-    @auth = request.env["omniauth.auth"]
-    #Use the token from the data to request a list of calendars
-    @token = @auth["credentials"]["token"]
-    client = Google::APIClient.new
-    client.authorization.access_token = @token
-    service = client.discovered_api('calendar', 'v3')
-
-    event = {
-      'summary' => 'Google Calendar Test API Event',
-      'location' => "Michael's Desk",
-      'description' => 'Google Calendar Test API Event',
-      'start' => {
-        'dateTime' => "#{Chronic.parse('today at 3pm').strftime('%FT%T.%L%:z')}"
-      },
-      'end' => {
-        'dateTime' => "#{Chronic.parse('today at 5pm').strftime('%FT%T.%L%:z')}"
-      }
-    }
-    @result = client.execute(
-      :api_method => service.events.insert,
-      :parameters => {'calendarId' => 'primary', 'text' => 'Test Event'},
-      :body => JSON.dump(event),
-      :headers => {'Content-Type' => 'application/json'})
-  end
+  # def new_calendar(event, request)
+  #   #What data comes back from OmniAuth?
+  #   @auth = request.env["omniauth.auth"]
+  #   #Use the token from the data to request a list of calendars
+  #   @token = @auth["credentials"]["token"]
+  #   client = Google::APIClient.new
+  #   client.authorization.access_token = @token
+  #   service = client.discovered_api('calendar', 'v3')
+  #
+  #   event_details = {
+  #     'summary' => event.title,
+  #     'location' => event.location,
+  #     'description' => event.description,
+  #     'start' => {
+  #       'dateTime' => "#{Chronic.parse(event.starts_at.to_s).strftime('%FT%T.%L%:z')}"
+  #     },
+  #     'end' => {
+  #       'dateTime' => "#{Chronic.parse(event.ends_at.to_s).strftime('%FT%T.%L%:z')}"
+  #     },
+  #     'visibility' => event.visibility,
+  #     "attendees" => attendee_emails_array(email.attendees)
+  #   }
+  #
+  #   @result = client.execute(
+  #     :api_method => service.events.insert,
+  #     :parameters => {'calendarId' => 'primary', 'text' => 'Test Event'},
+  #     :body => JSON.dump(event_details),
+  #     :headers => {'Content-Type' => 'application/json'})
+  # end
+  #
+  # def attendee_email_array(attendees)
+  #   attendees.each do |attend|
+  #     atts << { "email" => attend }
+  #   end
+  #   return atts
+  # end
 
   def new_event_from_params
     @event = Event.new(events_params)
   end
 
   def events_params
-    params[:event].permit(:title, :starts_at, :ends_at) if params[:event]
+    params[:event].permit(:title, :starts_at, :ends_at, :description, :location, :visibility, :attendees, :user_id) if params[:event]
   end
 end

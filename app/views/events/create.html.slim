@@ -1,2 +1,4 @@
-= debug @auth
-= debug @result.data
+.container.page
+  .white-shadowed-panel.no-pad
+    = debug @auth
+    = debug @result.try(:data)
