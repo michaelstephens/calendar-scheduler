@@ -1,5 +1,4 @@
 require 'google/api_client'
-require 'date'
 
 class Calendar
   attr_accessor :event, :api_event
@@ -60,10 +59,10 @@ class Calendar
     #   'location' => event.location,
     #   'description' => event.description,
     #   'start' => {
-    #     'dateTime' => "#{Chronic.parse(event.starts_at.to_s).strftime('%FT%T.%L%:z')}"
+    #     'dateTime' => "#{Chronic.parse(event.starts_at.to_s).to_datetime.rfc3339(3)}"
     #   },
     #   'end' => {
-    #     'dateTime' => "#{Chronic.parse(event.ends_at.to_s).strftime('%FT%T.%L%:z')}"
+    #     'dateTime' => "#{Chronic.parse(event.ends_at.to_s).to_datetime.rfc3339(3)}"
     #   },
     #   'visibility' => event.visibility,
     #   "attendees" => attendee_emails_array(email.attendees)
